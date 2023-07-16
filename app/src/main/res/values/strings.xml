@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ComposeView</string>
+    <string name="login_title">BaroDog</string>
+    <string name="login_subtitle">바로는 너무 귀여워요. 저는 매일 보고 있어요. 부럽죠?</string>
+    <string name="email">Email</string>
+    <string name="pass">Password</string>
+    <string name="email_hint">baro@dog.com</string>
+    <string name="hint">hint</string>
+    <string name="confirm">Confirm</string>
+    <string name="next">Next</string>
+</resources>
