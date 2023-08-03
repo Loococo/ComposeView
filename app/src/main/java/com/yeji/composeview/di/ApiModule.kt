@@ -1,6 +1,6 @@
 package com.yeji.composeview.di
 
-import com.yeji.composeview.data.remote.api.AuthApi
+import com.yeji.composeview.data.source.remote.api.AuthApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

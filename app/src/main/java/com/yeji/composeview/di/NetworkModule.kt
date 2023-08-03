@@ -18,10 +18,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor()
-        .apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
+    fun provideBaseUrl() = "https://api.vulpix.works/api/"
 
     @Provides
     @Singleton
@@ -32,22 +29,29 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideBaseUrl(): String {
-        return "https://api.vulpix.works/api/"
-    }
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor()
+        .apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+    @Provides
+    @Singleton
+    fun providerOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient = OkHttpClient.Builder()
+        .apply {
+            addInterceptor(loggingInterceptor)
+        }.build()
 
     @Singleton
     @Provides
     fun provideRetrofit(
-        loggingInterceptor: HttpLoggingInterceptor,
+        okHttpClient: OkHttpClient,
         baseUrl: String, gson: Gson
     ): Retrofit {
-        val builder = OkHttpClient.Builder()
-        builder.addInterceptor(loggingInterceptor)
-
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .client(builder.build())
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
